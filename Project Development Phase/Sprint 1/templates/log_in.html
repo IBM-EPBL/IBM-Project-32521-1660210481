@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login Page</title>
+        <link rel="stylesheet" type="text/css" href="style.css"/>  
+    </head>
+
+    <body>
+        <div class="login-form">
+            <form action="#" method="post" onsubmit="return validcap()">
+                <p>User Name</p>
+                <input type="text" name="user" id="user" placeholder="User Name">
+                <span id="incorrectUsername" class="errorMessage"></span>
+
+                <p>Password</p>
+                <input  type="password" name="password" id="password" placeholder="Password">
+                <span id="incorrectPassword" class="errorMessage"></span>
+                <br/>
+                <div class="captch">
+                <input type="text" id="capt" readonly="readonly" />
+                <div id="refresh"> <img src="th.png" width="30px" onclick="cap()"/></div>
+                </div>
+                <input type="text" id="textinput"/>
+                <span id="incorrectcaptcha" class="errorMessage"></span>
+                <div class="buttons">
+                <button id="submitButton" type="submit">Login</button>
+                <a href="signup.html">Do not have acc?Register</a>
+            </div>
+            </form>
+
+        </div>
+
+        <script type="text/javascript">
+            cap()
+
+            function cap(){
+                let alpha = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V'
+                        ,'W','X','Y','Z','1','2','3','4','5','6','7','8','9','0','a','b','c','d','e','f','g','h','i',
+                        'j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+
+                var a=alpha[Math.floor(Math.random()*62)];
+                var b=alpha[Math.floor(Math.random()*62)];
+                var c=alpha[Math.floor(Math.random()*62)];
+                var d=alpha[Math.floor(Math.random()*62)];
+                var e=alpha[Math.floor(Math.random()*62)];
+                var f=alpha[Math.floor(Math.random()*62)];
+
+                var sum=a + b + c + d + e + f;
+
+                document.getElementById("capt").value=sum;
+            }
+
+            const userName = document.getElementById('user')
+            const password = document.getElementById('password')
+            let string1 = document.getElementById('capt').value;
+            var string2 = document.getElementById('textinput');
+            const incorrectUsername = document.getElementById('incorrectUsername')
+            const incorrectPassword = document.getElementById('incorrectPassword')
+            const incorrectcaptcha = document.getElementById('incorrectcaptcha')
+
+            function validcap() {
+                if(userName.value === '' || userName.value == null){
+                    incorrectUsername.innerText = 'Enter User Name'
+                    return false;
+                }else{
+                    incorrectUsername.innerText = ''
+                }
+
+                if(password.value === '' || password.value == null){
+                    incorrectPassword.innerText = 'Enter Password'
+                    return false;
+                }else if(password.value.length <= 8){
+                    incorrectPassword.innerText = 'Password must be more then 8 Charecters'
+                    return false;
+                }else if(password.value.length >= 20){
+                    incorrectPassword.innerText = 'Password must be less then 20 Charecters'
+                    return false;
+                }else{
+                    incorrectPassword.innerText = ''
+                }
+
+                if (string1 === string2.value){
+                    alert("Form is validated Succesfully");
+                    return true;
+                }else if(string2.value === '' || string2.value == null){
+                    incorrectcaptcha.innerText = 'Enter captcha'
+                    return false;
+                }else if(string1 != string2.value){
+                    incorrectcaptcha.innerText = 'captcha mis match'
+                    return false;
+                }
+
+                
+            }
+        </script>
+    </body>
+</html>
