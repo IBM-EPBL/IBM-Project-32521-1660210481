@@ -1,0 +1,120 @@
+body{
+    background:url('bg1.jpg') no-repeat;
+    background-size: cover;
+}
+.login-form{
+    width: 350px;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    position: absolute;
+    color:rgb(255, 253, 253);
+}
+.login-form h1{ 
+    font-size: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 40px 0;
+}
+.login-form p{
+    font-size: 20px;
+    margin:15px 0;
+}
+.login-form input {
+    font-size: 16px;
+    width: 100%;
+    padding:15px 10px;
+    border:0;
+    outline: none;
+    border-radius: 5px;
+}
+#captcha {
+    height: 80%;
+    width: 80%;
+    font-size: 30px;
+    letter-spacing: 3px;
+    margin: auto;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.center {
+    /* display: flex; */
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+}
+/* .center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} */
+.captch{
+    width: 20%;
+    height: 60%;
+}
+#submitButton {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 30px 25px 10px 130px;
+    padding: 10px 15px;
+    width: 30%;
+    border-radius: 5px;
+    border: 0;
+    background-color: rgb(199, 226, 231);
+    color: rgb(26, 27, 27);
+}
+#refreshButton {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 20px 0;
+    padding: 10px 25px 10px 10px;
+    width: 50%;
+    border-radius: 5px;
+    border: 0;
+    background-color: rgb(199, 226, 231);
+    color: rgb(26, 27, 27);
+}
+#textBox {
+    height: 20px;
+}
+.incorrectCaptcha {
+    color: #FF0000;
+}
+.correctCaptcha {
+    color: #7FFF00;
+}
+a{
+	text-decoration: none;
+	color:#fff;
+	font-size:15px;
+	line-height:15px;
+    text-align: center;
+    margin-left: 34%;
+
+}
+a:hover{
+	color:#f8f897;
+    
+    text-align: center;
+}
+
+.errorMessage{
+	color: rgb(255, 0, 0);
+}
+.capt{
+    
+    border-radius: 0%;
+    background-color: rgb(98, 122, 199);
+    outline:none;
+    width: 220px;
+    height: 30px;
+    font-size: 14px;
+    font-weight:700;
+    font-family: Arial;
+    border-bottom: 1px solid blue;
+    margin:0px;
+    float:left;
+}
