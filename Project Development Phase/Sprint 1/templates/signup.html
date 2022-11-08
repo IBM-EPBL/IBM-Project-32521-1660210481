@@ -25,9 +25,9 @@
        <input type="text" name="username" placeholder="Enter Username">
        <span class="errorMessage" id="incorrectUsername"></span>
 
-       <p>Mobile Number</p>
-       <input type="text" name="num" placeholder="Enter mobile number">
-       <span class="errorMessage" id="incorrectmobileNo"></span>
+       <p>Email</p>
+       <input type="email" name="mail" placeholder="Enter Email Id">
+       <span class="errorMessage" id="invalidEmail"></span>
 
        <p>Password</p>
        <input type="password" name="pswd" placeholder="Enter your password"><br>
@@ -48,12 +48,12 @@
            function validation()  
            {  
                var id=document.f1.username.value;
-               var ph=document.f1.num.value;  
+               var mail=document.f1.mail.value;  
                var ps=document.f1.pswd.value;  
                var cps=document.f1.cpswd.value;
 
                const incorrectUsername = document.getElementById('incorrectUsername')
-               const incorrectmobileNo = document.getElementById('incorrectmobileNo')
+               const invalidEmail = document.getElementById('invalidEmail')
                const incorrectPassword = document.getElementById('incorrectPassword')
                const incorrectConfirmPassword = document.getElementById('incorrectConfirmPassword')
                
@@ -67,13 +67,11 @@
                     incorrectUsername.innerHTML = '';
                 }
 
-                if (ph.length == "") {  
-                    incorrectmobileNo.innerHTML = 'Enter Mobile Number';
+                if (mail.length == "") {  
+                    invalidEmail.innerHTML = 'Enter Email';
                     return false;  
-                }else if(ph.length != 10) {  
-                    incorrectmobileNo.innerHTML = 'Enter Valid Mobile Number'; 
-                    return false;  
-                }else{
+                }
+                else{
                     incorrectmobileNo.innerHTML = '';
                 }
 
