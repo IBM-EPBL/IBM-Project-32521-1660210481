@@ -16,6 +16,8 @@ app.config['UPLOAD_FOLDER'] = picFolder
 @app.route('/dashboard', methods = ['GET','POST'])
 def dashboard():
 	if request.method=='POST':
+		ckdImg = os.path.join(app.config['UPLOAD_FOLDER'],'healthy.png')
+		noCkdImg = os.path.join(app.config['UPLOAD_FOLDER'],'happy.jpg')
 		age = int(request.form['age'])
 		bp  = float(request.form['bp'])
 		sp  = float(request.form['sp'])
@@ -42,8 +44,8 @@ def dashboard():
 		prediction=model.predict([[age, bp, sp, al, su, rbc, pc, pcc, bgr, bu, sc, sod, pot, hemo, pcv, wc, htn, dm, cad, appet, pe, ane, ba]])
 		output = np.round(prediction)
 		if output==0:
-			return render_template('dash.html',prediction_text="Sorry! You have Chronic Kidney Disese...")
-		return render_template('dash.html',prediction_text="Congrats!! You don't have Chronic Kidney Disease...")
+			return render_template('dash.html',prediction_text="Sorry! You have Chronic Kidney Disese...",ckd=ckdImg)
+		return render_template('dash.html',prediction_text="Congrats!! You don't have Chronic Kidney Disease...",ckd=noCkdImg)
 	return render_template('dashboard.html')
 @app.route('/')
 @app.route('/login', methods =['GET', 'POST'])
@@ -64,7 +66,7 @@ def login():
 			return redirect(url_for('dashboard',text = msg))
 
 		else:
-			msg = '                  Incorrect username / password !'
+			msg = 'Incorrect username / password !'
 	return render_template('log_in.html', errorMsg = msg,loginpic = loginPic)
 
 @app.route('/register', methods =['GET', 'POST'])
