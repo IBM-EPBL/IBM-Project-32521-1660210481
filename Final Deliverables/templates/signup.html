@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>REGISTRATION</title>
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/signup.css') }}"> -->
+    <link rel="stylesheet" type="text/css" href="/static/signup.css"/> 
+    <link rel="icon" href="login.png" type="image/x-icon">
+    <!--<script type="text/javascript" src="javascript.js"></script>-->
+       <style type="text/css">
+           body{
+               background-image: url("{{ url_for('static', filename='pics/bg1.jpg') }}");
+               background-attachment: fixed;
+               background-size: 100% 100%;
+               width: 35%;
+               margin-left:33%;
+           }
+       </style>
+</head>
+<body>  
+   <div id = "frm">  
+   <h3>USER REGISTRATION</h3>  
+       <form name="f1" action = "/register" onsubmit = "return validation()" method = "POST">  
+
+       <p>User Name</p>
+       <input type="text" name="username" placeholder="Enter Username">
+       <span class="errorMessage" id="incorrectUsername"></span>
+
+       <p>Email</p>
+       <input type="email" name="mail" placeholder="Enter Email Id">
+       <span class="errorMessage" id="invalidEmail"></span>
+
+       <p>Password</p>
+       <input type="password" name="pswd" placeholder="Enter your password"><br>
+       <span class="errorMessage" id="incorrectPassword"></span>
+
+       <p>Confirm Password</p>
+       <input type="password" name="cpswd" placeholder="Confirm your password">
+       <span class="errorMessage" id="incorrectConfirmPassword"></span>
+
+       <div id="errorbox"></div><br>
+       <!--<form action="nec.php" method="POST">-->
+       <input type="submit" name="" value="SIGN UP"><br><br>
+       <a href="{{url_for('login')}}">Already Have an account ? Login</a>
+       </form>
+       <!-- </form>   -->
+   </div>  
+   <script>  
+           function validation()  
+           {  
+               var id=document.f1.username.value;
+               var mail=document.f1.mail.value;  
+               var ps=document.f1.pswd.value;  
+               var cps=document.f1.cpswd.value;
+
+               const incorrectUsername = document.getElementById('incorrectUsername')
+               const invalidEmail = document.getElementById('invalidEmail')
+               const incorrectPassword = document.getElementById('incorrectPassword')
+               const incorrectConfirmPassword = document.getElementById('incorrectConfirmPassword')
+               
+                if(id.length=="") {  
+                    incorrectUsername.innerHTML = 'Enter User Name'; 
+                    return false;  
+                }else if(id.length >= 20) {  
+                    incorrectUsername.innerHTML = 'User Name must be less than 20 Charecters'; 
+                    return false;  
+                }else{
+                    incorrectUsername.innerHTML = '';
+                }
+
+                if (mail.length == "") {  
+                    invalidEmail.innerHTML = 'Enter Email';
+                    return false;  
+                }
+                else{
+                    incorrectmobileNo.innerHTML = '';
+                }
+
+                
+                if(ps.length=="") {  
+                    incorrectPassword.innerHTML = 'Enter Password'; 
+                    return false;  
+                }else if(ps.length <= 8){
+                    incorrectPassword.innerText = 'Password must be more then 8 Charecters'
+                    return false; 
+                }else if(ps.length >= 20){
+                    incorrectPassword.innerText = 'Password must be less then 20 Charecters'
+                    return false; 
+                }else{
+                    incorrectPassword.innerHTML = '';
+                }
+
+
+                if (cps.length=="") {  
+                    incorrectConfirmPassword.innerHTML = 'Enter Confirm Password';
+                    return false;  
+                }else if(ps!=cps) {  
+                    incorrectConfirmPassword.innerHTML = "Password and confirm password in not equal";  
+                    return false;  
+                }else{
+                    incorrectConfirmPassword.innerHTML = ""; 
+                }
+            }                            
+       </script>  
+</body>     
+</html>
