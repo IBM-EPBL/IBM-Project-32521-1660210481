@@ -16,6 +16,8 @@ app.config['UPLOAD_FOLDER'] = picFolder
 @app.route('/dashboard', methods = ['GET','POST'])
 def dashboard():
 	if request.method=='POST':
+		ckdImg = os.path.join(app.config['UPLOAD_FOLDER'],'healthy.png')
+		noCkdImg = os.path.join(app.config['UPLOAD_FOLDER'],'happy.jpg')
 		age = int(request.form['age'])
 		bp  = float(request.form['bp'])
 		sp  = float(request.form['sp'])
@@ -42,8 +44,8 @@ def dashboard():
 		prediction=model.predict([[age, bp, sp, al, su, rbc, pc, pcc, bgr, bu, sc, sod, pot, hemo, pcv, wc, htn, dm, cad, appet, pe, ane, ba]])
 		output = np.round(prediction)
 		if output==0:
-			return render_template('dash.html',prediction_text="Sorry! You have Chronic Kidney Disese...")
-		return render_template('dash.html',prediction_text="Congrats!! You don't have Chronic Kidney Disease...")
+			return render_template('dash.html',prediction_text="Sorry! You have Chronic Kidney Disese...",ckd=ckdImg)
+		return render_template('dash.html',prediction_text="Congrats!! You don't have Chronic Kidney Disease...",ckd=noCkdImg)
 	return render_template('dashboard.html')
 @app.route('/')
 @app.route('/login', methods =['GET', 'POST'])
@@ -62,6 +64,7 @@ def login():
 			session['username'] = account[1]
 			msg = 'Logged in successfully !'
 			return redirect(url_for('dashboard',text = msg))
+
 		else:
 			msg = 'Incorrect username / password !'
 	return render_template('log_in.html', errorMsg = msg,loginpic = loginPic)
@@ -70,14 +73,14 @@ def login():
 def register():
 	msg = ''
 	registerImg = os.path.join(app.config['UPLOAD_FOLDER'],'login.png')
-	if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form :
+	if request.method == 'POST' and 'username' in request.form and 'pswd' in request.form and 'mail' in request.form :
 		username = request.form['username']
-		password = request.form['password']
+		password = request.form['pswd']
 		email = request.form['mail']
 		sql = "SELECT * FROM signup WHERE username = '"+username+"'"
 		stmt = ibm_db.exec_immediate(conn, sql)
 		account = ibm_db.fetch_both(stmt)
-
+		print(username)
 		if account:
 			msg = 'Account already exists !'
 		elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
@@ -87,14 +90,18 @@ def register():
 		elif not username or not password or not email:
 			msg = 'Please fill out the form !'
 		else:
+			print("Insert")
 			ins = "INSERT INTO signup VALUES ('"+username+"','"+email+"','"+password+"')"
 			prep_stmt = ibm_db.prepare(conn, ins)
+			print("exec stmnt")
 			ibm_db.execute(prep_stmt)
 			msg = 'You have successfully registered !'
+
 			return redirect(url_for('login'))
 
 	elif request.method == 'POST':
 		msg = 'Please fill out form !'
+	# return redirect(url_for('register'))
 	return render_template('signup.html', errorMsg = msg,registerImg=registerImg)
 
 
